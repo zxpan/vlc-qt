@@ -134,21 +134,23 @@ ENDIF()
 SYMLINK_FRAMEWORK_TEST(${VLCQT_QML} qml ${VLCQT_QML_NAME})
 
 # Link the required libraries
-TARGET_LINK_LIBRARIES(${VLCQT_QML} PRIVATE Qt5::Quick ${VLCQT_CORE})
+TARGET_LINK_LIBRARIES(${VLCQT_QML} PRIVATE Qt6::Quick ${VLCQT_CORE})
+
+#TARGET_LINK_LIBRARIES(${VLCQT_QML} PRIVATE Qt5::Quick ${VLCQT_CORE})
 IF(NOT STATIC)
     TARGET_LINK_LIBRARIES(${VLCQT_QML} PRIVATE ${LIBVLC_LIBRARY} ${LIBVLCCORE_LIBRARY})
-    IF(Qt5Core_VERSION VERSION_LESS "5.5.0" AND WITH_GLES)
-        IF(MSVC)
-            TARGET_LINK_LIBRARIES(${VLCQT_QML} PRIVATE
-                                  ${_qt5Core_install_prefix}/lib/libEGL${LE}.lib
-                                  ${_qt5Core_install_prefix}/lib/libGLESv2${LE}.lib)
-        ENDIF()
-        IF(MINGW)
-            TARGET_LINK_LIBRARIES(${VLCQT_QML} PRIVATE
-                                  ${_qt5Core_install_prefix}/lib/liblibEGL${LE}.a
-                                  ${_qt5Core_install_prefix}/lib/liblibGLESv2${LE}.a)
-        ENDIF()
-    ENDIF()
+    #IF(Qt5Core_VERSION VERSION_LESS "5.5.0" AND WITH_GLES)
+    #    IF(MSVC)
+    #        TARGET_LINK_LIBRARIES(${VLCQT_QML} PRIVATE
+    #                              ${_qt5Core_install_prefix}/lib/libEGL${LE}.lib
+    #                              ${_qt5Core_install_prefix}/lib/libGLESv2${LE}.lib)
+    #    ENDIF()
+    #    IF(MINGW)
+    #        TARGET_LINK_LIBRARIES(${VLCQT_QML} PRIVATE
+    #                              ${_qt5Core_install_prefix}/lib/liblibEGL${LE}.a
+    #                              ${_qt5Core_install_prefix}/lib/liblibGLESv2${LE}.a)
+    #    ENDIF()
+    #ENDIF()
 
     IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux" AND WITH_X11)
         TARGET_LINK_LIBRARIES(${VLCQT_QML} PRIVATE -lX11)

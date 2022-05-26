@@ -17,14 +17,15 @@
 #############################################################################
 # Qt
 IF(NOT DEFINED QT_VERSION)
-    SET(QT_VERSION 5)
+    #SET(QT_VERSION 5)
+    SET(QT_VERSION 6)
 ENDIF()
 
 IF(QT_VERSION MATCHES 4)
     FIND_PACKAGE(Qt4 4.8.0 REQUIRED)
 
     MESSAGE(WARNING "Qt4 support is deprecated and will be removed. Please update to Qt 5 soon.")
-ELSE()
+ELSEIF(QT_VERSION MATCHES 5)
     FIND_PACKAGE(Qt5Core 5.2.0 REQUIRED)
     FIND_PACKAGE(Qt5Quick 5.2.0 REQUIRED)
     FIND_PACKAGE(Qt5Widgets 5.2.0 REQUIRED)
@@ -35,6 +36,18 @@ ELSE()
     SET(SYSTEM_QML OFF CACHE BOOL "Install to system QML import path")
 
     MESSAGE(STATUS "Using Qt ${Qt5Core_VERSION}")
+    MESSAGE(STATUS "Installing to system QML import path: ${SYSTEM_QML}")
+ELSE()
+    FIND_PACKAGE(Qt6Core 6.2.4 REQUIRED)
+    FIND_PACKAGE(Qt6Quick 6.2.4 REQUIRED)
+    FIND_PACKAGE(Qt6Widgets 6.2.4 REQUIRED)
+
+    FIND_PACKAGE(Qt6QuickTest 6.2.4 REQUIRED)
+    FIND_PACKAGE(Qt6Test 6.2.4 REQUIRED)
+
+    SET(SYSTEM_QML OFF CACHE BOOL "Install to system QML import path")
+
+    MESSAGE(STATUS "Using Qt ${Qt6Core_VERSION}")
     MESSAGE(STATUS "Installing to system QML import path: ${SYSTEM_QML}")
 ENDIF()
 
@@ -72,9 +85,25 @@ STRING(REGEX REPLACE "([^ ]+)[/\\].*" "\\1" QT_BIN_DIR_TMP "${QT_MOC_EXECUTABLE}
 STRING(REGEX REPLACE "\\\\" "/" QT_BIN_DIR "${QT_BIN_DIR_TMP}")  # Replace back slashes to slashes
 STRING(REGEX REPLACE "bin" "lib" QT_LIB_DIR "${QT_BIN_DIR}")
 
+set(CMAKE_INSTALL_PREFIX "/Users/zhengxiangpan/project/vlc-qt6-install")
+
 IF(QT_VERSION MATCHES 5)
     IF(SYSTEM_QML)
         FIND_PROGRAM(QMAKE NAMES qmake-qt5 qmake)
+        IF(NOT QMAKE)
+            MESSAGE(FATAL_ERROR "qmake not found")
+        ENDIF()
+        EXECUTE_PROCESS(
+            COMMAND ${QMAKE} -query QT_INSTALL_QML
+            OUTPUT_VARIABLE QT_INSTALL_QML OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+    ELSE()
+        SET(QT_INSTALL_QML ${CMAKE_INSTALL_PREFIX}/qml)
+    ENDIF()
+ENDIF()
+IF(QT_VERSION MATCHES 6)
+    IF(SYSTEM_QML)
+        FIND_PROGRAM(QMAKE NAMES qmake6 qmake)
         IF(NOT QMAKE)
             MESSAGE(FATAL_ERROR "qmake not found")
         ENDIF()

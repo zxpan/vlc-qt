@@ -22,6 +22,7 @@
 #include <QtCore/QUrl>
 
 #include <VLCQtCore/Enums.h>
+#include "core/TrackModel.h"
 
 class VlcInstance;
 class VlcMedia;

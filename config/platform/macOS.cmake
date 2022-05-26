@@ -17,7 +17,7 @@
 #############################################################################
 # macOS Extra #
 ###############
-SET(CMAKE_OSX_DEPLOYMENT_TARGET 10.9)
+SET(CMAKE_OSX_DEPLOYMENT_TARGET 12.3)
 
 ADD_CUSTOM_TARGET(prepare
     "${CMAKE_SOURCE_DIR}/scripts/macos/vlc_libraries_prepare.sh" "${LIBVLC_BIN_DIR}" "${CMAKE_BINARY_DIR}")

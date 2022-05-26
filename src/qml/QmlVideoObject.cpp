@@ -162,7 +162,8 @@ void VlcQmlVideoObject::geometryChanged(const QRectF &newGeometry,
     _geometry = newGeometry;
     updateBoundingRect();
 
-    QQuickPaintedItem::geometryChanged(newGeometry, oldGeometry);
+    qDebug() << "xxxxxxxxxx VlcQmlVideoObject::geometryChanged() called! ";
+    //QQuickPaintedItem::geometryChanged(newGeometry, oldGeometry);
 }
 
 void VlcQmlVideoObject::frameReady()

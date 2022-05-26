@@ -80,7 +80,10 @@ void VlcWidgetSeekProgress::wheelEvent(QWheelEvent *event)
     if (!_vlcMediaPlayer)
         return;
 
-    if (event->delta() > 0)
+    // https://doc.qt.io/qt-5/qwheelevent-obsolete.html#delta
+    QPoint numPixels = event->pixelDelta();
+    //if (event->delta() > 0)
+    if (numPixels.x() > 0)
         _vlcMediaPlayer->setTime(_vlcMediaPlayer->time() + _vlcMediaPlayer->length() * 0.01);
     else
         _vlcMediaPlayer->setTime(_vlcMediaPlayer->time() - _vlcMediaPlayer->length() * 0.01);

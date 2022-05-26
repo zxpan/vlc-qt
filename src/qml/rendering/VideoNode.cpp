@@ -33,6 +33,7 @@ void VideoNode::setFrame(const std::shared_ptr<const VlcYUVVideoFrame> &frame)
 {
     _material.setFrame(frame);
     markDirty(QSGNode::DirtyMaterial);
+    _material.uniforms.dirty = true;
 }
 
 void VideoNode::setRect(const QRectF &rect,

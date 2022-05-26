@@ -21,12 +21,13 @@
 
 #include <QtCore/QList>
 #include <QtCore/QMap>
+#include <QAction>
 
 #include <VLCQtCore/Enums.h>
 
 #include "SharedExportWidgets.h"
 
-class QAction;
+//class QAction;
 class QTimer;
 
 class VlcAudio;

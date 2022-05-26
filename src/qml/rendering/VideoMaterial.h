@@ -36,6 +36,9 @@
 #include <QtGui/QOpenGLFunctions>
 #endif
 
+#include <QtQuick/QSGTexture>
+#include <QtQuick/QSGTextureProvider>
+
 struct VlcYUVVideoFrame;
 
 class VideoMaterial : public QSGMaterial
@@ -45,7 +48,8 @@ public:
     ~VideoMaterial();
 
     virtual QSGMaterialType *type() const;
-    virtual QSGMaterialShader *createShader() const;
+    //virtual QSGMaterialShader *createShader() const;
+    virtual QSGMaterialShader *createShader(QSGRendererInterface::RenderMode renderMode) const;
     virtual int compare(const QSGMaterial *other) const;
 
     void setFrame(const std::shared_ptr<const VlcYUVVideoFrame> &frame);
@@ -71,7 +75,19 @@ private:
 #endif
 
     std::shared_ptr<const VlcYUVVideoFrame> _frame;
+
+public:
     GLuint _planeTexIds[3];
+
+    struct {
+        int _texYId;
+        int _texUId;
+        int _texVId;
+        QMatrix4x4 colorMatrix;
+        bool dirty;
+    } uniforms;
+
+    //QScopedPointer<QSGTexture> m_textures[3];
 };
 
 #endif // VLCQT_QMLRENDERING_VIDEOMATERIAL_H_

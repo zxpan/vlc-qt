@@ -25,12 +25,15 @@
 #include "rendering/VideoMaterial.h"
 #include "rendering/VideoMaterialShader.h"
 
+#include <iostream>
+
 VideoMaterial::VideoMaterial()
     : _frame(0)
 {
     memset(_planeTexIds, 0, sizeof(_planeTexIds));
     setFlag(Blending, false);
 
+/*
 #if QT_VERSION < 0x050300
 #if defined(QT_OPENGL_ES_2)
     _glF = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_ES2>();
@@ -43,6 +46,15 @@ VideoMaterial::VideoMaterial()
 #else
     _glF = QOpenGLContext::currentContext()->functions();
 #endif
+*/
+    _glF = QOpenGLContext::currentContext()->functions();
+    Q_ASSERT(_glF);
+    _glF->initializeOpenGLFunctions();
+std::cout << "xxxxxxxx VideoMaterial() is constructed" << std::endl;
+
+   //m_textures[0].reset(new QSGTexture);
+   //m_textures[1].reset(new QSGTexture);
+   //m_textures[2].reset(new QSGTexture);
 }
 
 VideoMaterial::~VideoMaterial()
@@ -57,8 +69,17 @@ QSGMaterialType *VideoMaterial::type() const
     return &theType;
 }
 
+/*
+// QT 5
 QSGMaterialShader *VideoMaterial::createShader() const
 {
+    return new VideoMaterialShader;
+}
+*/
+
+QSGMaterialShader *VideoMaterial::createShader(QSGRendererInterface::RenderMode renderMode) const 
+{
+std::cout << "xxxxxxxx VideoMaterial::createShader called" << std::endl;
     return new VideoMaterialShader;
 }
 

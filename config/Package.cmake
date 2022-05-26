@@ -115,3 +115,31 @@ IF(QT_VERSION MATCHES 5)
         COMPONENT Devel
     )
 ENDIF()
+
+IF(QT_VERSION MATCHES 6)
+    WRITE_BASIC_PACKAGE_VERSION_FILE(
+        "${CMAKE_BINARY_DIR}/package/VLCQtQml/VLCQtQmlConfigVersion.cmake"
+        VERSION ${VLCQT_VERSION}
+        COMPATIBILITY AnyNewerVersion
+    )
+    EXPORT(EXPORT VLCQtQmlTargets
+           FILE "${CMAKE_BINARY_DIR}/package/VLCQtQml/VLCQtQmlTargets.cmake"
+           NAMESPACE VLCQt::
+    )
+    CONFIGURE_FILE(config/package/VLCQtQmlConfig.cmake
+        "${CMAKE_BINARY_DIR}/package/VLCQtQml/VLCQtQmlConfig.cmake"
+    )
+    SET(VlcQtQmlConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/VLCQtQml)
+    INSTALL(EXPORT VLCQtQmlTargets
+            FILE VLCQtQmlTargets.cmake
+            NAMESPACE VLCQt::
+            DESTINATION ${VlcQtQmlConfigPackageLocation}
+    )
+    INSTALL(
+        FILES
+            config/package/VLCQtQmlConfig.cmake
+            "${CMAKE_BINARY_DIR}/package/VLCQtQml/VLCQtQmlConfigVersion.cmake"
+        DESTINATION ${VlcQtQmlConfigPackageLocation}
+        COMPONENT Devel
+    )
+ENDIF()

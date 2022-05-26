@@ -4,3 +4,9 @@
 [submodule "packaging"]
 	path = packaging
 	url = https://github.com/vlc-qt/packaging.git
+[submodule "vlc-qt-examples"]
+	path = vlc-qt-examples
+	url = https://github.com/zxpan/vlc-qt-examples
+[submodule "examples"]
+	path = examples
+	url = https://github.com/zxpan/vlc-qt-examples

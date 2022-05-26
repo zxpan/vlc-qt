@@ -20,6 +20,8 @@
 
 #include "qml/Qml.h"
 
+#include <iostream>
+
 static void initVLCQtPluginResources()
 {
 #ifdef QT_STATICPLUGIN
@@ -43,6 +45,7 @@ public:
     {
         Q_ASSERT(uri == QLatin1String("VLCQt"));
 
+std::cout << "-------------------------- call VLCQtPlugin::registerTypes" << std::endl;
         VlcQml::registerTypes();
     }
 };

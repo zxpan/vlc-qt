@@ -39,8 +39,11 @@ void VlcQmlVideoStream::frameUpdated()
         return; // LCOV_EXCL_LINE
     }
 
+    // std::bind2nd is deprecated in c++17
+    //              std::bind2nd(std::mem_fun(&VlcQmlVideoOutput::presentFrame), frame));
+    // use lamda function instead
     std::for_each(_attachedOutputs.begin(), _attachedOutputs.end(),
-                  std::bind2nd(std::mem_fun(&VlcQmlVideoOutput::presentFrame), frame));
+                 [frame](VlcQmlVideoOutput *v){ return v->presentFrame(frame); }); 
 }
 
 void VlcQmlVideoStream::registerVideoOutput(VlcQmlVideoOutput *output)

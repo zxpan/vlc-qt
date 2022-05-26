@@ -21,6 +21,10 @@
 #include "qml/QmlVideoOutput.h"
 #include "qml/rendering/VideoNode.h"
 
+#include <QtQuick/QSGTextureProvider>
+
+#include <iostream>
+
 VlcQmlVideoOutput::VlcQmlVideoOutput()
     : _fillMode(Vlc::PreserveAspectFit),
       _source(0),
@@ -120,8 +124,15 @@ QSGNode *VlcQmlVideoOutput::updatePaintNode(QSGNode *oldNode,
     if (!node)
         node = new VideoNode;
 
+    QSGTextureProvider * provider = this->textureProvider();
+std::cout << "VlcQmlVideoOutput::updatePaintNode provider=" << provider << std::endl;
+
+
     QRectF outRect(0, 0, width(), height());
     QRectF srcRect(0, 0, 1., 1.);
+
+std::cout << "VlcQmlVideoOutput::updatePaintNode width=" << width() << std::endl;
+std::cout << "VlcQmlVideoOutput::updatePaintNode fillMode=" << fillMode() << std::endl;
 
     if (fillMode() != Vlc::Stretch) {
         const uint16_t fw = _frame->width;

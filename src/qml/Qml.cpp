@@ -28,10 +28,14 @@
 #include "qml/QmlVideoOutput.h"
 #include "qml/QmlVideoPlayer.h"
 
+#include <iostream>
+
 void VlcQml::registerTypes()
 {
     QByteArray module(LIBVLCQT_QML_MODULE);
     const char *m = module.data();
+
+    std::cout << "VlcQml::registerTypes modue:" << m << std::endl;
 
     qmlRegisterUncreatableType<Vlc>(m, 1, 1, "Vlc", QStringLiteral("Vlc cannot be instantiated directly"));
     qmlRegisterUncreatableType<VlcQmlSource>(m, 1, 1, "VlcSource", QStringLiteral("VlcQmlSource cannot be instantiated directly"));

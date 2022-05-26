@@ -2,6 +2,7 @@ INCLUDE(CMakeFindDependencyMacro)
 FIND_DEPENDENCY(VLCQtCore)
 
 INCLUDE("${CMAKE_CURRENT_LIST_DIR}/VLCQtQmlTargets.cmake")
+message(status " searching for VLCQt::Qml")
 
 SET_TARGET_PROPERTIES(VLCQt::Qml PROPERTIES
     INTERFACE_LINK_LIBRARIES VLCQt::Core

@@ -20,7 +20,12 @@
 *****************************************************************************/
 
 #include <QtGui/QOpenGLFunctions>
-#include <QtGui/QOpenGLShaderProgram>
+//#include <QtGui/QOpenGLShaderProgram>
+#include <QOpenGLContext>
+#include <QOpenGLShaderProgram>
+//#include <QtOpenGL/QOpenGLShaderProgram>
+#include <QOpenGLFunctions>
+
 
 #include "core/VideoFrame.h"
 #include "qml/painter/GlslPainter.h"

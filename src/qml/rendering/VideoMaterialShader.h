@@ -27,9 +27,13 @@
 
 #include <QtQuick/QSGMaterial>
 
+class QOpenGLShaderProgram;
+
 class VideoMaterialShader : public QSGMaterialShader // LCOV_EXCL_LINE
 {
 public:
+    VideoMaterialShader();
+    ~VideoMaterialShader();
     virtual char const *const *attributeNames() const;
     virtual const char *vertexShader() const;
     virtual const char *fragmentShader() const;
@@ -39,13 +43,25 @@ public:
                              QSGMaterial *newMaterial,
                              QSGMaterial *oldMaterial);
 
+    virtual bool updateUniformData(RenderState &state,
+                                   QSGMaterial *newMaterial,
+                                   QSGMaterial *oldMaterial);
+
+    virtual void updateSampledImage(RenderState &state,
+                                    int binding,
+                                    QSGTexture **texture,
+                                    QSGMaterial *newMaterial,
+                                    QSGMaterial *oldMaterial);
 private:
+/*
     int _positionMatrixId;
     int _colorMatrixId;
     int _opacityId;
     int _texYId;
     int _texUId;
     int _texVId;
+*/
+    QOpenGLShaderProgram *_program;
 };
 
 #endif // VLCQT_QMLRENDERING_VIDEOMATERIALSHADER_H_

@@ -18,11 +18,18 @@
 
 #include <QtGlobal>
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= 0x060000
+#include <QtWidgets/QApplication>
+//#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QToolBar>
+
+#elif QT_VERSION >= 0x050000
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QToolBar>
+
 #else
 #include <QtGui/QApplication>
 #include <QtGui/QDesktopWidget>
